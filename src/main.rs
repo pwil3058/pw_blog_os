@@ -13,9 +13,12 @@ use pw_blog_os::println;
 pub extern "C" fn _start() -> ! {
     println!("Hello World{}", "1");
 
+    pw_blog_os::init();
+
     #[cfg(test)]
     test_main();
 
+    println!("it did not crash");
     loop {}
 }
 
