@@ -2,7 +2,6 @@
 
 use alloc::alloc::{GlobalAlloc, Layout};
 use core::ptr::null_mut;
-use linked_list_allocator::LockedHeap;
 use x86_64::{
     structures::paging::{
         mapper::MapToError, FrameAllocator, Mapper, Page, PageTableFlags, Size4KiB,
@@ -13,7 +12,6 @@ use x86_64::{
 pub mod bump;
 pub mod fixed_size_block;
 
-use bump::BumpAllocator;
 use fixed_size_block::FixedSizeBlockAllocator;
 
 pub const HEAP_START: usize = 0x_4444_4444_0000;
