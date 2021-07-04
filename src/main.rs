@@ -11,8 +11,8 @@ extern crate alloc;
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 use pw_blog_os::println;
+use pw_blog_os::task::executor::Executor;
 use pw_blog_os::task::keyboard;
-use pw_blog_os::task::simple_executor::SimpleExecutor;
 use pw_blog_os::task::Task;
 
 entry_point!(kernel_main);
@@ -35,13 +35,10 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     #[cfg(test)]
     test_main();
 
-    let mut executor = SimpleExecutor::new();
+    let mut executor = Executor::new();
     executor.spawn(Task::new(example_task()));
     executor.spawn(Task::new(keyboard::print_keypresses()));
     executor.run();
-
-    println!("it did not crash");
-    pw_blog_os::hlt_loop();
 }
 
 #[cfg(not(test))]
